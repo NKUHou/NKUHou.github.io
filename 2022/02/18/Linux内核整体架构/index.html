@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux内核整体架构, Hexo">
+    <meta name="keywords" content="Linux内核整体架构, HouGuan">
     <meta name="description" content="linux内核整体架构20220120        https://blog.csdn.net/qq_16777851/category_7901554.html
 1.前言本文是“Linux内核分析”系列文章的第一篇，会以内核的核心功能为">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linux内核整体架构 | Hexo</title>
+    <title>Linux内核整体架构 | HouGuan</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -45,7 +45,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Hexo</span>
+                    <span class="logo-span">HouGuan</span>
                 </a>
             </div>
             
@@ -144,7 +144,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Hexo</div>
+        <div class="logo-name">HouGuan</div>
         <div class="logo-desc">
             
             Never really desperate, only the lost of the soul.
@@ -459,6 +459,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -550,7 +553,46 @@
 </li>
 </ol>
 <p>下图示使用ls命令看到的内核源代码的顶层目录结构，具体描述如下。<br><img src="https://img-blog.csdn.net/20180802211609150?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzE2Nzc3ODUx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img"></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">include/        ---- 内核头文件，需要提供给外部模块（例如用户空间代码）使用。</span><br><span class="line"> </span><br><span class="line">kernel/         ---- Linux内核的核心代码，包含了<span class="number">3.2</span>小节所描述的进程调度子系统，以及和进程调度相关的模块。</span><br><span class="line"> </span><br><span class="line">mm/             ---- 内存管理子系统（<span class="number">3.3</span>小节）。</span><br><span class="line"> </span><br><span class="line">fs/             ---- VFS子系统（<span class="number">3.4</span>小节）。</span><br><span class="line"> </span><br><span class="line">net/            ---- 不包括网络设备驱动的网络子系统（<span class="number">3.5</span>小节）。</span><br><span class="line"> </span><br><span class="line">ipc/            ---- IPC（进程间通信）子系统。</span><br><span class="line"> </span><br><span class="line">arch<span class="comment">//          ---- 体系结构相关的代码，例如arm, x86等等。 </span></span><br><span class="line">arch<span class="comment">//mach      ---- 具体的machine/board相关的代码。 </span></span><br><span class="line">arch<span class="comment">//include/asm ---- 体系结构相关的头文件。 </span></span><br><span class="line">arch<span class="comment">//boot/dts  ---- 设备树（Device Tree）文件。</span></span><br><span class="line"> </span><br><span class="line">init/           ---- Linux系统启动初始化相关的代码。 </span><br><span class="line">block/          ---- 提供块设备的层次。 </span><br><span class="line">sound/          ---- 音频相关的驱动及子系统，可以看作“音频子系统”。 </span><br><span class="line">drivers/        ---- 设备驱动（在Linux kernel <span class="number">3.10</span>中，设备驱动占了<span class="number">49.4</span>的代码量）。</span><br><span class="line"> </span><br><span class="line">lib/            ---- 实现需要在内核中使用的库函数，例如CRC、FIFO、<span class="built_in">list</span>、MD5等。 </span><br><span class="line">crypto/         ----- 加密、解密相关的库函数。 </span><br><span class="line">security/       ---- 提供安全特性（SELinux）。 </span><br><span class="line">virt/           ---- 提供虚拟机技术（KVM等）的支持。 </span><br><span class="line">usr/            ---- 用于生成initramfs的代码。 </span><br><span class="line">firmware/       ---- 保存用于驱动第三方设备的固件。</span><br><span class="line"> </span><br><span class="line">samples/        ---- 一些示例代码。 </span><br><span class="line">tools/          ---- 一些常用工具，如性能剖析、自测试等。</span><br><span class="line"> </span><br><span class="line">Kconfig, Kbuild, Makefile, scripts/ ---- 用于内核编译的配置文件、脚本等。</span><br><span class="line"> </span><br><span class="line">COPYING         ---- 版权声明。 </span><br><span class="line">MAINTAINERS     ----维护者名单。 </span><br><span class="line">CREDITS         ---- Linux主要的贡献者名单。 </span><br><span class="line">REPORTING-BUGS  ---- Bug上报的指南。</span><br><span class="line"> </span><br><span class="line">Documentation, README ---- 帮助、说明文档。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">include<span class="token operator">/</span>        <span class="token operator">--</span><span class="token operator">--</span> 内核头文件，需要提供给外部模块（例如用户空间代码）使用。
+ 
+kernel<span class="token operator">/</span>         <span class="token operator">--</span><span class="token operator">--</span> Linux内核的核心代码，包含了<span class="token number">3.2</span>小节所描述的进程调度子系统，以及和进程调度相关的模块。
+ 
+mm<span class="token operator">/</span>             <span class="token operator">--</span><span class="token operator">--</span> 内存管理子系统（<span class="token number">3.3</span>小节）。
+ 
+fs<span class="token operator">/</span>             <span class="token operator">--</span><span class="token operator">--</span> VFS子系统（<span class="token number">3.4</span>小节）。
+ 
+net<span class="token operator">/</span>            <span class="token operator">--</span><span class="token operator">--</span> 不包括网络设备驱动的网络子系统（<span class="token number">3.5</span>小节）。
+ 
+ipc<span class="token operator">/</span>            <span class="token operator">--</span><span class="token operator">--</span> IPC（进程间通信）子系统。
+ 
+arch<span class="token comment">//          ---- 体系结构相关的代码，例如arm, x86等等。 </span>
+arch<span class="token comment">//mach      ---- 具体的machine/board相关的代码。 </span>
+arch<span class="token comment">//include/asm ---- 体系结构相关的头文件。 </span>
+arch<span class="token comment">//boot/dts  ---- 设备树（Device Tree）文件。</span>
+ 
+init<span class="token operator">/</span>           <span class="token operator">--</span><span class="token operator">--</span> Linux系统启动初始化相关的代码。 
+block<span class="token operator">/</span>          <span class="token operator">--</span><span class="token operator">--</span> 提供块设备的层次。 
+sound<span class="token operator">/</span>          <span class="token operator">--</span><span class="token operator">--</span> 音频相关的驱动及子系统，可以看作“音频子系统”。 
+drivers<span class="token operator">/</span>        <span class="token operator">--</span><span class="token operator">--</span> 设备驱动（在Linux kernel <span class="token number">3.10</span>中，设备驱动占了<span class="token number">49.4</span>的代码量）。
+ 
+lib<span class="token operator">/</span>            <span class="token operator">--</span><span class="token operator">--</span> 实现需要在内核中使用的库函数，例如CRC、FIFO、list、MD5等。 
+crypto<span class="token operator">/</span>         <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> 加密、解密相关的库函数。 
+security<span class="token operator">/</span>       <span class="token operator">--</span><span class="token operator">--</span> 提供安全特性（SELinux）。 
+virt<span class="token operator">/</span>           <span class="token operator">--</span><span class="token operator">--</span> 提供虚拟机技术（KVM等）的支持。 
+usr<span class="token operator">/</span>            <span class="token operator">--</span><span class="token operator">--</span> 用于生成initramfs的代码。 
+firmware<span class="token operator">/</span>       <span class="token operator">--</span><span class="token operator">--</span> 保存用于驱动第三方设备的固件。
+ 
+samples<span class="token operator">/</span>        <span class="token operator">--</span><span class="token operator">--</span> 一些示例代码。 
+tools<span class="token operator">/</span>          <span class="token operator">--</span><span class="token operator">--</span> 一些常用工具，如性能剖析、自测试等。
+ 
+Kconfig<span class="token punctuation">,</span> Kbuild<span class="token punctuation">,</span> Makefile<span class="token punctuation">,</span> scripts<span class="token operator">/</span> <span class="token operator">--</span><span class="token operator">--</span> 用于内核编译的配置文件、脚本等。
+ 
+COPYING         <span class="token operator">--</span><span class="token operator">--</span> 版权声明。 
+MAINTAINERS     <span class="token operator">--</span><span class="token operator">--</span>维护者名单。 
+CREDITS         <span class="token operator">--</span><span class="token operator">--</span> Linux主要的贡献者名单。 
+REPORTING<span class="token operator">-</span>BUGS  <span class="token operator">--</span><span class="token operator">--</span> Bug上报的指南。
+ 
+Documentation<span class="token punctuation">,</span> README <span class="token operator">--</span><span class="token operator">--</span> 帮助、说明文档。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="5-附录"><a href="#5-附录" class="headerlink" title="5 附录"></a>5 附录</h2><p>参考资料</p>
 <p><a target="_blank" rel="noopener" href="http://www.wowotech.net/linux_kenrel/11.html">http://www.wowotech.net/linux_kenrel/11.html</a> </p>
